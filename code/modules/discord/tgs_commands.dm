@@ -4,7 +4,8 @@
 
 /datum/tgs_chat_command/tgscheck/Run(datum/tgs_chat_user/sender, params)
 	var/server = CONFIG_GET(string/server)
-	return new /datum/tgs_message_content("[GLOB.round_id ? "Round #[GLOB.round_id]: " : ""][GLOB.clients.len] players on [SSmapping.config.map_name]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]")
+	return new /datum/tgs_message_content("[GLOB.round_id ? "Round #[GLOB.round_id]: " : ""][GLOB.clients.len] players, Active: [get_active_player_count(0,1,0)]). on [SSmapping.config.map_name]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active for [DisplayTimeText(world.time - SSticker.round_start_time, 1)]" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]")
+//Bubber Edit: Adds active player count and round time to the TGS check command
 
 /datum/tgs_chat_command/gameversion
 	name = "gameversion"
