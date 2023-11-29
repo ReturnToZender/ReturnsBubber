@@ -13,6 +13,7 @@
 
 		sortTim(players, GLOBAL_PROC_REF(cmp_text_asc))
 
+	var/list/entry = list() //Assoc list for sorting - display name is the key, job value from crewmonitor is the value
 	for(var/ckey in players)
 		var/mob/dead/new_player/player = players[ckey]
 		var/datum/preferences/prefs = player.client?.prefs
@@ -37,15 +38,17 @@
 			else
 				display = prefs.read_preference(/datum/preference/name/real_name)
 
-		var/title = J.title
 		if(player.ready == PLAYER_READY_TO_PLAY && J.title != JOB_ASSISTANT||JOB_PRISONER)
-			if(J.departments_bitflags & DEPARTMENT_BITFLAG_COMMAND | DEPARTMENT_BITFLAG_SILICON)
-				player_ready_data.Insert(1, "[display] as [title]")
-			else
-				player_ready_data += "* [display] as [title]"
+			entry[display] = list(GLOB.crewmonitor.jobs[J.title], J.title)
+
+	entry = sort_list(entry, GLOBAL_PROC_REF(cmp_numeric_asc)) // Sort list by job ID.
+
+	for(var/character_name in entry)
+		var/job_title = entry[character_name][2]
+		player_ready_data += "* [character_name] as [job_title]"
 
 	if(length(player_ready_data))
-		player_ready_data.Insert(1, "------------------")
-		player_ready_data.Insert(1, "Job Estimation:")
 		player_ready_data.Insert(1, "")
+		player_ready_data.Insert(2, "Job Estimation:")
+		player_ready_data.Insert(3, "------------------")
 	return player_ready_data
