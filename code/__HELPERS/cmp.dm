@@ -147,6 +147,9 @@
 /proc/cmp_pdajob_asc(datum/computer_file/program/messenger/A, datum/computer_file/program/messenger/B)
 	return sorttext(B?.computer?.saved_job, A?.computer?.saved_job)
 
+/proc/cmp_jobestimate_asc(list/A, list/B) // TODO: Move this to a modular file.
+	return B["estimate"] - A["estimate"]
+
 /proc/cmp_num_string_asc(A, B)
 	return text2num(A) - text2num(B)
 

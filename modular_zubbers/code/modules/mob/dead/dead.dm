@@ -13,7 +13,7 @@
 
 		sortTim(players, GLOBAL_PROC_REF(cmp_text_asc))
 
-	var/list/entry = list() //Assoc list for sorting - display name is the key, job value from crewmonitor is the value
+	var/list/collected_players = list() //Assoc list for sorting - display name is the key, job value from crewmonitor is the value
 	for(var/ckey in players)
 		var/mob/dead/new_player/player = players[ckey]
 		var/datum/preferences/prefs = player.client?.prefs
@@ -39,13 +39,19 @@
 				display = prefs.read_preference(/datum/preference/name/real_name)
 
 		if(player.ready == PLAYER_READY_TO_PLAY && J.title != JOB_ASSISTANT||JOB_PRISONER)
-			entry[display] = list(GLOB.crewmonitor.jobs[J.title], J.title)
+			var/list/entry
+			entry["character_name"] = display
+			entry["job_title"] = J.title
+			entry["job_title_id"] = GLOB.crewmonitor.jobs[J.title]
+			OUT << entry
+			collected_players[++collected_players.len] = entry
+			// TODO: This ^ isn't working, no entries are being added to it. Need to debug.
+			// TODO: Also need to see if I have to add exceptions for AI/Cyborg for sorting purposes.
 
-	entry = sort_list(entry, GLOBAL_PROC_REF(cmp_numeric_asc)) // Sort list by job ID.
+	collected_players = sort_list(collected_players, GLOBAL_PROC_REF(cmp_jobestimate_asc)) // Sort list by job ID.
 
-	for(var/character_name in entry)
-		var/job_title = entry[character_name][2]
-		player_ready_data += "* [character_name] as [job_title]"
+	for(var/entry in collected_players)
+		player_ready_data += "* [entry["character_name"]] as [entry["job_title"]]"
 
 	if(length(player_ready_data))
 		player_ready_data.Insert(1, "")
