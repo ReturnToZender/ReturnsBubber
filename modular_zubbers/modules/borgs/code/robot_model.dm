@@ -42,6 +42,39 @@
 	var/mob/living/silicon/robot/cyborg = loc
 	cyborg.faction -= ROLE_DEATHSQUAD //You're no longer part of CENTCOM
 
+/obj/item/robot_model/science //Currently, basically just an Engineering borg but worse
+	name = "Science"
+	basic_modules = list(
+		/obj/item/assembly/flash/cyborg,
+		/obj/item/borg/sight/meson,
+		/obj/item/construction/rcd/borg,
+		/obj/item/extinguisher,
+		/obj/item/weldingtool/largetank/cyborg,
+		/obj/item/screwdriver/cyborg/power,
+		/obj/item/crowbar/cyborg/power,
+		/obj/item/multitool/cyborg,
+		/obj/item/analyzer,
+		/obj/item/assembly/signaler/cyborg,
+		/obj/item/electroadaptive_pseudocircuit,
+		/obj/item/stack/sheet/iron,
+		/obj/item/stack/sheet/glass,
+		/obj/item/borg/apparatus/sheet_manipulator,
+		/obj/item/stack/rods/cyborg,
+		/obj/item/lightreplacer/cyborg,
+		/obj/item/stack/tile/iron/base/cyborg,
+		/obj/item/stack/cable_coil,
+	)
+	radio_channels = list(RADIO_CHANNEL_SCIENCE)
+	emag_modules = list(
+		/obj/item/borg/stun,
+	)
+	cyborg_base_icon = "science"
+	cyborg_icon_override = 'modular_zubbers/modules/borgs/sprites/widerobot_sci.dmi'
+	model_select_icon = "science"
+	model_select_alternate_icon = 'modular_skyrat/modules/borgs/icons/screen_cyborg.dmi' //Skyrat already has a sciborg icon, so why not use it?
+	model_traits = list(TRAIT_NEGATES_GRAVITY)
+	hat_offset = -4
+	borg_skins = list()
 
 /* BUBBER SPRITE ADDITIONS BELOW */
 /obj/item/robot_model/medical/Initialize(mapload)
