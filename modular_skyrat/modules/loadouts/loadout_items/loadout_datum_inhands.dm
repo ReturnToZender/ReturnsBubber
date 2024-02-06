@@ -54,7 +54,8 @@ GLOBAL_LIST_INIT(loadout_inhand_items, generate_loadout_items(/datum/loadout_ite
 /datum/loadout_item/inhand/toolbox
 	name = "Full Toolbox"
 	item_path = /obj/item/storage/toolbox/mechanical
-	blacklisted_roles = list(JOB_PRISONER)
+	//blacklisted_roles = list(JOB_PRISONER)
+	restricted_roles = list(JOB_STATION_ENGINEER, JOB_ATMOSPHERIC_TECHNICIAN, JOB_CHIEF_ENGINEER) //BUBBER EDIT: ENGINEERS ONLY
 
 /datum/loadout_item/inhand/bouquet_mixed
 	name = "Mixed Bouquet"

@@ -200,6 +200,7 @@ GLOBAL_LIST_INIT(loadout_pocket_items, generate_loadout_items(/datum/loadout_ite
 /datum/loadout_item/pocket_items/medkit
 	name = "First-Aid Kit"
 	item_path = /obj/item/storage/medkit/regular
+	restricted_roles = list(JOB_MEDICAL_DOCTOR, JOB_PARAMEDIC, JOB_CHIEF_MEDICAL_OFFICER) //BUBBER EDIT: RESTRICTS THIS TO DOCTORS ONLY
 
 /datum/loadout_item/pocket_items/ingredients
 	name = "Wildcard Ingredient Box"
