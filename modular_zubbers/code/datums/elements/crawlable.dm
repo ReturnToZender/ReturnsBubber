@@ -1,10 +1,10 @@
-/datum/elevent/crawlable
+/datum/element/crawlable
 	element_flags = ELEMENT_BESPOKE | ELEMENT_DETACH_ON_HOST_DESTROY // Detach for turfs
 	argument_hash_start_idx = 2
 	///Time it takes to crawl under the object
-	var/climb_time
+	var/crawl_time
 	///Stun duration for when you get under the object
-	var/climb_stun
+	var/crawl_stun
 	///Assoc list of object being climbed on - crawlers.  This allows us to check who needs to be shoved off a crawlable object when its clicked on.
 	var/list/current_crawlers
 
@@ -19,7 +19,7 @@
 	RegisterSignal(target, COMSIG_ATOM_ATTACK_HAND, PROC_REF(attack_hand))
 	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(target, COMSIG_MOUSEDROPPED_ONTO, PROC_REF(mousedrop_receive))
-	ADD_TRAIT(target, TRAIT_CLIMBABLE, ELEMENT_TRAIT(type))
+	ADD_TRAIT(target, TRAIT_CRAWLABLE, ELEMENT_TRAIT(type))
 
 /datum/element/crawlable/Detach(datum/target)
 	UnregisterSignal(target, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_EXAMINE, COMSIG_MOUSEDROPPED_ONTO, COMSIG_ATOM_BUMPED))
@@ -30,7 +30,7 @@
 	SIGNAL_HANDLER
 	examine_texts += span_notice("[source] looks crawlable.")
 
-/datum/element/crawlable/proc/can_climb(atom/source, mob/user)
+/datum/element/crawlable/proc/can_crawl(atom/source, mob/user)
 	var/dir_step = get_dir(user, source.loc)
 	//To jump over a railing you have to be standing next to it, not far behind it.
 	if(source.flags_1 & ON_BORDER_1 && user.loc != source.loc && (dir_step & source.dir) == source.dir)
@@ -49,40 +49,40 @@
 		structure_crawler.Paralyze(40)
 		structure_crawler.visible_message(span_warning("[structure_crawler] is knocked off [crawled_thing]."), span_warning("You're knocked off [crawled_thing]!"), span_hear("You hear a cry from [structure_crawler], followed by a slam."))
 
-/datum/element/crawlable/proc/climb_structure(atom/crawled_thing, mob/living/user, params)
+/datum/element/crawlable/proc/crawl_structure(atom/crawled_thing, mob/living/user, params)
 	if(!can_crawl(crawled_thing, user))
 		return
 	crawled_thing.add_fingerprint(user)
-	user.visible_message(span_warning("[user] starts climbing under [crawled_thing]."), \
-								span_notice("You start climbing under [crawled_thing]..."))
-	var/adjusted_climb_time = climb_time
-	var/adjusted_climb_stun = climb_stun
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //climbing takes twice as long without help from the hands.
-		adjusted_climb_time *= 2
+	user.visible_message(span_warning("[user] starts crawling under [crawled_thing]."), \
+								span_notice("You start crawling under [crawled_thing]..."))
+	var/adjusted_crawl_time = crawl_time
+	var/adjusted_crawl_stun = crawl_stun
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)) //crawling takes twice as long without help from the hands.
+		adjusted_crawl_time *= 2
 	if(isalien(user))
-		adjusted_climb_time *= 0.25 //aliens are terrifyingly fast
+		adjusted_crawl_time *= 0.25 //aliens are terrifyingly fast
 	if(HAS_TRAIT(user, TRAIT_FREERUNNING)) //do you have any idea how fast I am???
-		adjusted_climb_time *= 0.8
-		adjusted_climb_stun *= 0.8
+		adjusted_crawl_time *= 0.8
+		adjusted_crawl_stun *= 0.8
 	if(HAS_TRAIT(user, TRAIT_SETTLER)) //hold on, gimme a moment, my tiny legs can't get over the goshdamn table
-		adjusted_climb_time *= 1.5
-		adjusted_climb_stun *= 1.5
+		adjusted_crawl_time *= 1.5
+		adjusted_crawl_stun *= 1.5
 	LAZYADDASSOCLIST(current_crawlers, crawled_thing, user)
-	if(do_after(user, adjusted_climb_time, crawled_thing))
+	if(do_after(user, adjusted_crawl_time, crawled_thing))
 		if(QDELETED(crawled_thing)) //Checking if structure has been destroyed
 			return
-		if(do_climb(crawled_thing, user, params))
-			user.visible_message(span_warning("[user] climbs under [crawled_thing]."), \
+		if(do_crawl(crawled_thing, user, params))
+			user.visible_message(span_warning("[user] crawls under [crawled_thing]."), \
 								span_notice("You crawl under [crawled_thing]."))
-			log_combat(user, crawled_thing, "climbed under")
-			if(adjusted_climb_stun)
-				user.Stun(adjusted_climb_stun)
+			log_combat(user, crawled_thing, "crawled under")
+			if(adjusted_crawl_stun)
+				user.Stun(adjusted_crawl_stun)
 		else
 			to_chat(user, span_warning("You fail to crawl under [crawled_thing]."))
 	LAZYREMOVEASSOC(current_crawlers, crawled_thing, user)
 
-/datum/element/crawlable/proc/do_climb(atom/crawled_thing, mob/living/user, params)
-	if(!can_climb(crawled_thing, user))
+/datum/element/crawlable/proc/do_crawl(atom/crawled_thing, mob/living/user, params)
+	if(!can_crawl(crawled_thing, user))
 		return
 	crawled_thing.set_density(FALSE)
 	var/dir_step = get_dir(user, crawled_thing.loc)
@@ -102,7 +102,7 @@
 	. = step(user, dir_step)
 	crawled_thing.set_density(TRUE)
 
-///Handles climbing under the atom when you click-drag
+///Handles crawling under the atom when you click-drag
 /datum/element/crawlable/proc/mousedrop_receive(atom/crawled_thing, atom/movable/dropped_atom, mob/user, params)
 	SIGNAL_HANDLER
 	if(user != dropped_atom || !isliving(dropped_atom))
@@ -110,5 +110,5 @@
 	if(!HAS_TRAIT(dropped_atom, TRAIT_FENCE_CLIMBER) && !HAS_TRAIT(dropped_atom, TRAIT_CAN_HOLD_ITEMS)) // If you can hold items you can probably crawl a fence
 		return
 	var/mob/living/living_target = dropped_atom
-	if(living_target.mobility_flags & MOBILITY_MOVE)
-		INVOKE_ASYNC(src, PROC_REF(climb_structure), crawled_thing, living_target, params)
+	if(living_target.mobility_flags & MOBILITY_MOVE && living_target.resting)
+		INVOKE_ASYNC(src, PROC_REF(crawl_structure), crawled_thing, living_target, params)
