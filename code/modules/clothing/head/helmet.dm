@@ -13,7 +13,7 @@
 	strip_delay = 60
 	clothing_flags = SNUG_FIT | STACKABLE_HELMET_EXEMPT
 	flags_cover = HEADCOVERSEYES|EARS_COVERED
-	flags_inv = HIDEHAIR
+	flags_inv = HIDEHAIR|SHOWSPRITEEARS //BUBBER EDIT: ALL HELMETS SHOW EARBS BY DEFAULT
 	dog_fashion = /datum/dog_fashion/head/helmet
 
 /datum/armor/head_helmet
