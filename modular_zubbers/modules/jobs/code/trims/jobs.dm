@@ -70,12 +70,12 @@
 		access |= list(ACCESS_MAINT_TUNNELS)
 
 /datum/id_trim/job/blueshield
+	minimal_access = list(
+		ACCESS_BRIG_ENTRANCE, ACCESS_CAPTAIN, ACCESS_COMMAND, ACCESS_CONSTRUCTION, ACCESS_DETECTIVE, ACCESS_ENGINEERING,
+		ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL, ACCESS_RC_ANNOUNCE, ACCESS_RESEARCH, ACCESS_WEAPONS,
+	)
 	minimal_wildcard_access = list()
-	template_access = list(ACCESS_CAPTAIN) //Blueshield can no longer change to any other ID trim
-
-/datum/id_trim/job/blueshield/New()
-	.=..()
-	minimal_access |= list(ACCESS_CAPTAIN)
+	template_access = list(ACCESS_CAPTAIN, ACCESS_CHANGE_IDS)
 //BUBBER ADDITION: adds ACCESS_CAPTAIN to the Blueshield's minimal_access.
 //Lowering the Blueshield's ID from CENTCOM to silver necessitates moving this access.
 
