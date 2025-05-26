@@ -50,3 +50,13 @@
 	desc = "A jacket that probably makes quite the effective outdoors wear. However, \
 		some barbarian has cut the sleeves off."
 	icon_state = "jacket_sleeveless"
+
+/obj/item/clothing/suit/wornshirt_alt
+	name = "worn shirt"
+	desc = "A worn out (or perhaps just baggy), curiously comfortable t-shirt."
+	icon = 'modular_zubbers/icons/obj/clothing/suits.dmi'
+	worn_icon = 'modular_zubbers/icons/mob/clothing/suits.dmi'
+	icon_state = "wornshirt"
+	inhand_icon_state = "labcoat"
+	body_parts_covered = CHEST|GROIN
+	supports_variations_flags = CLOTHING_DIGITIGRADE_VARIATION_NO_NEW_ICON
