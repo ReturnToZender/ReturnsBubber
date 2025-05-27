@@ -51,7 +51,7 @@
 		some barbarian has cut the sleeves off."
 	icon_state = "jacket_sleeveless"
 
-/obj/item/clothing/suit/wornshirt_alt
+/obj/item/clothing/suit/wornshirt_alt //Sprites made by JadeCat, inspired by Skyrat's worn shirt
 	name = "worn shirt"
 	desc = "A worn out (or perhaps just baggy), curiously comfortable t-shirt."
 	icon = 'modular_zubbers/icons/obj/clothing/suits.dmi'
