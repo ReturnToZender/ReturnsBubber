@@ -1,5 +1,5 @@
 /datum/job/assistant/stowaway
-	title = "Stowaway"
+	title = JOB_STOWAWAY
 	description = "Be a stowaway aboard a hazardous research station that is infamous for many reasons."
 	faction = FACTION_NONE
 	supervisors = "yourself"
@@ -12,7 +12,6 @@
 	config_tag = "STOWAWAY"
 
 	liver_traits = list(TRAIT_MAINTENANCE_METABOLISM)
-
 
 	job_flags = JOB_NEW_PLAYER_JOINABLE|JOB_REOPEN_ON_ROUNDSTART_LOSS|JOB_ASSIGN_QUIRKS|JOB_CANNOT_OPEN_SLOTS
 
@@ -54,3 +53,10 @@
 	amount_to_spawn = 5
 	desired_atom = /obj/effect/landmark/start/stowaway
 	target_areas = list(/area/station/hallway/secondary/entry, /area/station/terminal/interlink)
+
+/datum/outfit/job/stowaway
+	name = JOB_STOWAWAY
+	jobtype = /datum/job/assistant/stowaway
+	belt = /obj/item/modular_computer/pda/assistant
+	r_pocket = /obj/item/multitool
+	l_pocket = /obj/item/reagent_containers/cup/soda_cans/grey_bull

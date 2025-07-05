@@ -47,6 +47,9 @@
 //No department
 #define JOB_ASSISTANT "Assistant"
 #define JOB_PRISONER "Prisoner"
+//BUBBER EDIT ADDITION: STOWAWAYS
+#define JOB_STOWAWAY "Stowaway"
+//BUBBER EDIT ADDITION END: STOWAWAYS
 //Command
 #define JOB_CAPTAIN "Captain"
 #define JOB_HEAD_OF_PERSONNEL "Head of Personnel"
