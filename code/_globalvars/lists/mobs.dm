@@ -133,6 +133,7 @@ GLOBAL_LIST_INIT_TYPED(species_prototypes, /datum/species, init_species_prototyp
 
 /proc/init_species_list()
 	var/list/species_list = list()
+	var/list/template_species = list()
 	for(var/datum/species/species_path as anything in subtypesof(/datum/species))
 		species_list[initial(species_path.id)] = species_path
 	return species_list
