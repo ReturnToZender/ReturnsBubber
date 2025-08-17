@@ -124,7 +124,7 @@
 	return list(placeholder_lore)
 
 /datum/species/vulpkanin/prepare_human_for_preview(mob/living/carbon/human/vulp)
-	var/main_color = "#FF8800"
+	var/main_color = "#D1763D"
 	var/second_color = "#FFFFFF"
 
 	vulp.dna.features["mcolor"] = main_color

@@ -80,13 +80,13 @@
 	return list(placeholder_lore)
 
 /datum/species/tajaran/prepare_human_for_preview(mob/living/carbon/human/cat)
-	var/main_color = "#AA9988"
-	var/second_color = "#AAAA99"
+	var/main_color = "#e69a4d"
+	var/second_color = "#695D5D"
 
 	cat.dna.features["mcolor"] = main_color
 	cat.dna.features["mcolor2"] = second_color
 	cat.dna.features["mcolor3"] = second_color
-	cat.dna.mutant_bodyparts["snout"] = list(MUTANT_INDEX_NAME = "Mammal, Short", MUTANT_INDEX_COLOR_LIST = list(main_color, main_color, main_color))
+	cat.dna.mutant_bodyparts["snout"] = list(MUTANT_INDEX_NAME = "Mammal, Short ALT 3", MUTANT_INDEX_COLOR_LIST = list(main_color, main_color, second_color))
 	cat.dna.mutant_bodyparts["tail"] = list(MUTANT_INDEX_NAME = "Cat", MUTANT_INDEX_COLOR_LIST = list(second_color, main_color, main_color))
 	cat.dna.mutant_bodyparts["ears"] = list(MUTANT_INDEX_NAME = "Cat, normal", MUTANT_INDEX_COLOR_LIST = list(main_color, second_color, second_color))
 	regenerate_organs(cat, src, visual_only = TRUE)
