@@ -51,3 +51,15 @@
 	lizard.set_facial_hairstyle("Lizard Tongue Flick")
 	regenerate_organs(lizard, src, visual_only = TRUE)
 	lizard.update_body(TRUE)
+
+/datum/species/lizard/ashwalker/get_species_description()
+	return list(placeholder_description)
+
+/datum/species/lizard/ashwalker/get_species_lore()
+	return list(placeholder_lore)
+
+/datum/species/lizard/silverscale/get_species_description()
+	return list(placeholder_description)
+
+/datum/species/lizard/silverscale/get_species_lore()
+	return list(placeholder_lore)
