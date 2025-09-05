@@ -88,7 +88,7 @@ Key procs
 	PRIVATE_PROC(TRUE)
 
 	var/datum/language/prototype = GLOB.language_datum_instances[language]
-	for(var/other_language in prototype.mutual_understanding)
+	for(var/other_language in prototype?.mutual_understanding)
 		grant_partial_language(other_language, prototype.mutual_understanding[other_language], language)
 
 /// Helper to remove all the partial understanding from the passed language
@@ -96,7 +96,7 @@ Key procs
 	PRIVATE_PROC(TRUE)
 
 	var/datum/language/prototype = GLOB.language_datum_instances[language]
-	for(var/other_language in prototype.mutual_understanding)
+	for(var/other_language in prototype?.mutual_understanding)
 		remove_partial_language(other_language, language)
 
 /// Calculates the "best mutual language list"
