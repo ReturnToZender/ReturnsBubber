@@ -104,6 +104,15 @@ export const medical_record: Feature<string> = {
   component: FeatureTextInput,
 };
 
+export const exploitable_info: Feature<string> = {
+  name: 'Records - Dirt',
+  description:
+    'IC information passed by brokers and sold under the table, often in the form of a dossier, but not always. \
+    Secrets, past crimes, personality traits and old connections, information held close. \
+    No truth can survive the information age for long. Accessible to antagonists, observers, and seedy individuals.',
+  component: FeatureTextInput,
+};
+
 export const pda_ringer: Feature<string> = {
   name: 'PDA Ringer Message',
   description:
