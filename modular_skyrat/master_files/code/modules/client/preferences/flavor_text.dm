@@ -115,3 +115,9 @@
 
 /datum/preference/text/security/apply_to_human(mob/living/carbon/human/target, value, datum/preferences/preferences)
 	return FALSE
+
+/datum/preference/text/dirt
+	category = PREFERENCE_CATEGORY_NON_CONTEXTUAL
+	savefile_identifier = PREFERENCE_CHARACTER
+	savefile_key = "exploitable"
+	maximum_value_length = MAX_FLAVOR_LEN
